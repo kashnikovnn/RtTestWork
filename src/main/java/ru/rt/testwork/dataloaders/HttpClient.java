@@ -12,7 +12,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 @Component
-public class HttpDataLoader {
+public class HttpClient {
     HttpURLConnection connection = null;
 
     public String getJson(String urlString) throws Exception {

@@ -1,18 +1,23 @@
-package ru.rt.testwork.services;
+package ru.rt.testwork.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import ru.rt.testwork.services.ReloadService;
 
 @RestController
 public class ReloadController {
 
+    @Autowired
+    ReloadService reloadService;
+
     @RequestMapping(value = "/reload", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public void reload(){
-
+    public void reload() throws Exception {
+        reloadService.reload();
     }
 
 }
