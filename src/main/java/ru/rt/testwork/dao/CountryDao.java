@@ -6,5 +6,7 @@ import java.util.List;
 
 public interface CountryDao {
 
-    public void saveCountryList(List<CountryEntity> countryEntityList);
+     void saveCountryList(List<CountryEntity> countryEntityList) throws Exception;
+
+    List<CountryEntity> getCountriesByName(String name);
 }
