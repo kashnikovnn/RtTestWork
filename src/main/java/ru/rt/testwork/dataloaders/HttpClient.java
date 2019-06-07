@@ -21,13 +21,14 @@ public class HttpClient {
         connection.setRequestMethod("GET");
         InputStream is = connection.getInputStream();
         BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-        StringBuilder response = new StringBuilder(); // or StringBuffer if Java version 5+
+        StringBuilder response = new StringBuilder();
         String line;
         while ((line = rd.readLine()) != null) {
             response.append(line);
             response.append('\r');
         }
         rd.close();
+        connection.disconnect();
         return response.toString();
     }
 }

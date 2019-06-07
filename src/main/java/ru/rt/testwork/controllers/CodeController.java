@@ -1,23 +1,27 @@
 package ru.rt.testwork.controllers;
 
 
+import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import ru.rt.testwork.scheduler.SchedulerConfig;
 import ru.rt.testwork.services.CodeService;
+import ru.rt.testwork.services.CodeServiceImpl;
 
 @RestController
 @RequestMapping("/code")
+@Data
 public class CodeController {
 
     final Logger logger = LoggerFactory.getLogger(CodeController.class);
 
     @Autowired
+    @Qualifier("codeServiceImpl")
     CodeService codeService;
 
     @RequestMapping(value = "/{countryname}", method = RequestMethod.GET)
@@ -43,8 +47,10 @@ public class CodeController {
     }
 
     @ExceptionHandler(Exception.class)
-    public void handleException(Exception ex) {
+    public ResponseEntity handleException(Exception ex) {
         logger.error("Error while GET request code by country: ", ex );
-        throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error", ex);
+        ResponseEntity<String> responseEntity = new ResponseEntity("Internal server error: " + ex.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        return responseEntity;
+
     }
 }

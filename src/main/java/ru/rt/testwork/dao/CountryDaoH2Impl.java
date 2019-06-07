@@ -1,5 +1,6 @@
 package ru.rt.testwork.dao;
 
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Transactional
 @Repository
+@Data
 public class CountryDaoH2Impl implements CountryDao {
 
     @Autowired
@@ -55,7 +57,10 @@ public class CountryDaoH2Impl implements CountryDao {
                 return countryEntity;
             }
         });
+
         return countryEntityList;
     }
+
+
 
 }

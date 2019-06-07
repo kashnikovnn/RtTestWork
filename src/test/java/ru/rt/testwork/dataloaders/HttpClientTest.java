@@ -7,10 +7,6 @@ import org.junit.Test;
 public class HttpClientTest {
 
     HttpClient httpClient = new HttpClient();
-    @Before
-    public void setUp() throws Exception {
-
-    }
 
     @Test
     public void getJson() throws Exception {

@@ -1,9 +1,10 @@
 package ru.rt.testwork.scheduler;
 
+import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -11,11 +12,13 @@ import ru.rt.testwork.services.ReloadService;
 
 @Component
 @EnableScheduling
+@Data
 public class SchedulerConfig {
 
     final Logger logger = LoggerFactory.getLogger(SchedulerConfig.class);
 
     @Autowired
+    @Qualifier("reloadServiceImpl")
     ReloadService reloadService;
 
     @Scheduled(cron = "${cron.reload}",zone = "${cron.reload.timezone}")
