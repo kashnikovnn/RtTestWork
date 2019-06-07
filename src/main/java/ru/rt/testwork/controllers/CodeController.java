@@ -22,7 +22,6 @@ public class CodeController {
 
     @RequestMapping(value = "/{countryname}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    @ExceptionHandler()
     String getCodeByCountryName(@PathVariable("countryname") String countryName){
         logger.info("Incoming GET request code by country name " + countryName+"...");
 
@@ -38,8 +37,14 @@ public class CodeController {
 
     }
 
-    @ExceptionHandler()
-    public void handleBadFileNameException(Exception ex) {
+    @ExceptionHandler(ResponseStatusException.class)
+    public void handleResponseStatusException(ResponseStatusException ex) {
+        throw ex;
+    }
 
+    @ExceptionHandler(Exception.class)
+    public void handleException(Exception ex) {
+        logger.error("Error while GET request code by country: ", ex );
+        throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error", ex);
     }
 }

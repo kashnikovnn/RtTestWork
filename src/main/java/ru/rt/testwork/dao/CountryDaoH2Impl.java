@@ -22,7 +22,7 @@ public class CountryDaoH2Impl implements CountryDao {
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public void saveCountryList(List<CountryEntity> countryEntityList) throws Exception {
+    public void saveCountryList(List<CountryEntity> countryEntityList){
         String sql = "MERGE INTO COUNTRIES KEY(CODE) VALUES (?,?,?)";
         jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
             @Override
@@ -37,12 +37,13 @@ public class CountryDaoH2Impl implements CountryDao {
                 return countryEntityList.size();
             }
         });
-        throw new Exception("Ebala zjaba gadyku");
+
 
     }
 
     @Override
-    public List<CountryEntity> getCountriesByName(String name) {
+    public List<CountryEntity> getCountriesByName(String name)   {
+
         String sql = "SELECT CODE, NAME, PHONECODE FROM COUNTRIES WHERE LOWER(NAME) = LOWER(?)";
         List<CountryEntity> countryEntityList = jdbcTemplate.query(sql, new String[]{name}, new RowMapper<CountryEntity>() {
             @Override
@@ -54,7 +55,7 @@ public class CountryDaoH2Impl implements CountryDao {
                 return countryEntity;
             }
         });
-
         return countryEntityList;
     }
+
 }
